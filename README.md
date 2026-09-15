@@ -40,9 +40,11 @@ Current numbers (`python3 scripts/eval_report.py`): 100% schema validity, 93.3% 
 
 ```bash
 pip install -r requirements.txt
-pytest -q --tb=short tests/                              # fast, $0, no network
-npx --yes promptfoo@latest eval -c promptfooconfig.yaml   # richer per-case report, also $0
+pytest -q --tb=short tests/                              # the enforced gate: floor thresholds
+npx --yes promptfoo@latest eval -c promptfooconfig.yaml   # diagnostic per-case report, also $0
 ```
+
+`promptfoo eval` exits non-zero on any single test-case miss by design (per-case, not threshold-based), so CI runs it as a diagnostic report only (`|| true`) — pytest's threshold assertions are the actual pass/fail gate.
 
 ## Updating the prompt
 
