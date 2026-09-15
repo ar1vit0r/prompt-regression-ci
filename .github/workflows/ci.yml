@@ -1,0 +1,28 @@
+name: prompt-regression-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Run pytest (fast fixture checks)
+        run: pytest -q --tb=short tests/
+
+      - name: Write eval report to job summary
+        run: python3 scripts/eval_report.py >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run promptfoo eval (replayed fixtures, no live API calls)
+        run: npx --yes promptfoo@latest eval -c promptfooconfig.yaml --no-cache

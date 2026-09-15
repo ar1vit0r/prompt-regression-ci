@@ -1,0 +1,2 @@
+pytest>=8
+anthropic>=1  # only needed to run scripts/record.py locally, not used in CI

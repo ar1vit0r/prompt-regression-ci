@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "model": "claude-sonnet-4-5-20250929",
+    "prompt_version": "classify.txt@v1",
+    "recorded_at": "2026-09-14",
+    "note": "Recorded once against the live Anthropic API via scripts/record.py. CI replays these instead of calling the API, so the pipeline runs at $0 and doesn't depend on network access or a live key. Regenerate with scripts/record.py whenever the prompt changes."
+  },
+  "t01": {"category": "billing", "priority": "high"},
+  "t02": {"category": "billing", "priority": "low"},
+  "t03": {"category": "technical", "priority": "high"},
+  "t04": {"category": "technical", "priority": "low"},
+  "t05": {"category": "technical", "priority": "high"},
+  "t06": {"category": "account", "priority": "high"},
+  "t07": {"category": "account", "priority": "low"},
+  "t08": {"category": "account", "priority": "medium"},
+  "t09": {"category": "feature_request", "priority": "low"},
+  "t10": {"category": "feature_request", "priority": "low"},
+  "t11": {"category": "technical", "priority": "high"},
+  "t12": {"category": "other", "priority": "low"},
+  "t13": {"category": "other", "priority": "low"},
+  "t14": {"category": "account", "priority": "urgent"},
+  "t15": {"category": "billing", "priority": "urgent"}
+}

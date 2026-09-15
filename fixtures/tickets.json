@@ -1,0 +1,17 @@
+[
+  {"id": "t01", "text": "I was charged twice for my subscription this month. Please refund the duplicate charge.", "expected_category": "billing", "expected_priority": "high"},
+  {"id": "t02", "text": "My invoice PDF from last month shows the wrong company address, can you correct it for our records?", "expected_category": "billing", "expected_priority": "low"},
+  {"id": "t03", "text": "The app crashes every time I try to upload a file larger than 10MB.", "expected_category": "technical", "expected_priority": "high"},
+  {"id": "t04", "text": "Dark mode toggle in settings doesn't persist after I refresh the page.", "expected_category": "technical", "expected_priority": "low"},
+  {"id": "t05", "text": "Production API is returning 500 errors for all requests since 10 minutes ago, our whole team is blocked.", "expected_category": "technical", "expected_priority": "urgent"},
+  {"id": "t06", "text": "I can't log in, it says my password is wrong but I just reset it five minutes ago.", "expected_category": "account", "expected_priority": "high"},
+  {"id": "t07", "text": "Please change the email address on my account from old@example.com to new@example.com.", "expected_category": "account", "expected_priority": "low"},
+  {"id": "t08", "text": "How do I delete my account and all associated data permanently?", "expected_category": "account", "expected_priority": "medium"},
+  {"id": "t09", "text": "It would be great if the dashboard supported exporting reports as CSV, not just PDF.", "expected_category": "feature_request", "expected_priority": "low"},
+  {"id": "t10", "text": "Can you add a dark mode option? A lot of us work at night.", "expected_category": "feature_request", "expected_priority": "low"},
+  {"id": "t11", "text": "We need SSO/SAML support before our security team will approve renewing our contract.", "expected_category": "feature_request", "expected_priority": "high"},
+  {"id": "t12", "text": "Just wanted to say the new onboarding flow is really smooth, nice work.", "expected_category": "other", "expected_priority": "low"},
+  {"id": "t13", "text": "Do you offer a nonprofit discount? We're a small education charity.", "expected_category": "other", "expected_priority": "low"},
+  {"id": "t14", "text": "Someone logged into my account from a country I've never visited, please investigate immediately.", "expected_category": "account", "expected_priority": "urgent"},
+  {"id": "t15", "text": "My card on file expired, the payment failed and now my account is suspended, I need this fixed today.", "expected_category": "billing", "expected_priority": "urgent"}
+]
