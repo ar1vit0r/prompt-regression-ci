@@ -5,3 +5,5 @@ venv/
 .env
 node_modules/
 .promptfoo/
+CLAUDE.md
+.claude/
