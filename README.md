@@ -4,11 +4,13 @@ A CI pipeline that catches prompt regressions on a support-ticket classifier: ev
 
 ![CI](https://github.com/ar1vit0r/prompt-regression-ci/actions/workflows/ci.yml/badge.svg)
 
-## What this is (and isn't)
+## How it works
 
-The prompt classifies a support ticket into `{category, priority}` as JSON. CI runs against **pre-recorded model responses** (`fixtures/recorded_responses.json`), not live API calls, so every run is $0 and has no network dependency. That means the CI badge proves *"the fixtures still parse and still meet the accuracy floor"* — it does not prove the live model hasn't drifted since the fixtures were recorded. Catching live drift is a separate, deliberately manual step: `scripts/record.py` re-runs the real prompt against the Anthropic API and overwrites the fixtures, so you can diff and review the change before committing it.
+The prompt classifies a support ticket into `{category, priority}` as JSON. CI replays pre-recorded model responses from `fixtures/recorded_responses.json` instead of calling the API, so a run costs nothing and needs no network. A green badge means the recorded responses still parse and still meet the accuracy floor. It says nothing about whether the live model has drifted since they were recorded.
 
-This is a record/replay pattern (the LLM equivalent of VCR-style HTTP test fixtures), chosen over mocking so the recorded outputs are real model output, not hand-written approximations of what the model would say.
+Checking for drift is manual on purpose: `scripts/record.py` re-runs the prompt against the Anthropic API and overwrites the fixtures, and you review the diff before committing.
+
+Record/replay (the same idea as VCR-style HTTP fixtures) was picked over mocks because the fixtures then hold real model output instead of hand-written guesses.
 
 ## Architecture
 
@@ -44,14 +46,14 @@ pytest -q --tb=short tests/                              # the enforced gate: fl
 npx --yes promptfoo@latest eval -c promptfooconfig.yaml   # diagnostic per-case report, also $0
 ```
 
-`promptfoo eval` exits non-zero on any single test-case miss by design (per-case, not threshold-based), so CI runs it as a diagnostic report only (`|| true`) — pytest's threshold assertions are the actual pass/fail gate.
+`promptfoo eval` exits non-zero whenever a single case misses, because it checks each case instead of a threshold. CI runs it as a report only (`|| true`), and the pytest thresholds decide pass or fail.
 
 ## Updating the prompt
 
 1. Edit `prompts/classify.txt` (and/or `fixtures/tickets.json` for new test cases).
 2. If you changed `tickets.json`, regenerate the promptfoo config: `python3 scripts/gen_promptfoo_config.py`.
 3. Regenerate fixtures against the live API: `python3 scripts/record.py` (needs `ANTHROPIC_API_KEY`, costs a few cents for 15 short prompts on Haiku).
-4. Review the diff in `fixtures/recorded_responses.json` — this is the actual regression check for a human.
+4. Review the diff in `fixtures/recorded_responses.json`. This is where a person catches a regression.
 5. Commit. CI now replays the new fixtures.
 
 ## Stack
